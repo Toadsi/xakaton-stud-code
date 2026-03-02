@@ -3,107 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODE TEAM | КИГМ №23</title>
+    <title>CODE TEAM | Информационный портал хакатона</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-=======
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
->>>>>>> parent of f3b8d31 (upd)
     <style>
-        :root {
-            --primary: #3b82f6;
-            --accent: #10b981;
-            --bg: #0f172a;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: #f8fafc;
-            scroll-behavior: smooth;
-        }
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
-        }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         
-        .success-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.9);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
-        }
-        .card-step:hover {
-            transform: translateY(-5px);
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        :root {
+            --bg: #050505;
+            --accent: #3b82f6;
+            --card: #0f1115;
         }
 
-        .admin-table th {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #6b7280;
-            border-bottom-width: 1px;
-            border-color: rgba(255, 255, 255, 0.05);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        .admin-table td {
-            padding: 1rem;
-            font-size: 0.875rem;
-            border-bottom-width: 1px;
-            border-color: rgba(255, 255, 255, 0.05);
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(5, 5, 5, 0) 70%);
+        }
+
+        .glass {
+            background: rgba(15, 17, 21, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .input-glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-glass:focus {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: slideUp 0.5s ease-out; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-btn.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card-step:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <!-- Уведомление об успехе -->
-    <div id="successOverlay" class="success-overlay">
-        <div class="text-center p-8 glass rounded-3xl max-w-sm border-emerald-500/30">
-            <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-500"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-2">Проект принят!</h3>
-            <p class="text-slate-400 mb-6">Ваше решение успешно сохранено в базе хакатона. Удачи на защите!</p>
-            <button onclick="closeSuccess()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold transition">Отлично</button>
-        </div>
-    </div>
+    <div class="fixed inset-0 hero-gradient pointer-events-none"></div>
 
-<<<<<<< HEAD
     <header class="fixed top-0 w-full z-50 glass border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 cursor-pointer" onclick="switchTab('main')">
+            <div class="flex items-center space-x-4 cursor-pointer" onclick="switchTab('main')">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
                     <i class="fas fa-terminal text-white"></i>
                 </div>
                 <div>
                     <span class="text-xl font-black tracking-tighter block leading-none">CODE TEAM</span>
                     <span class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.2em]">KIGM 23</span>
-=======
-    <!-- Навигация -->
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="bg-blue-600 p-1.5 rounded-lg">
-                    <i data-lucide="code-2" class="w-6 h-6 text-white"></i>
->>>>>>> parent of f3b8d31 (upd)
                 </div>
-                <span class="text-xl font-extrabold tracking-tighter uppercase">Code Team</span>
             </div>
-<<<<<<< HEAD
             
             <nav class="hidden md:flex space-x-2">
                 <button onclick="switchTab('main')" id="btn-main" class="nav-btn active px-4 py-2 rounded-lg text-sm font-bold transition border border-transparent">Инфо</button>
@@ -111,481 +91,298 @@
                 <button onclick="switchTab('submit')" id="btn-submit" class="nav-btn px-4 py-2 rounded-lg text-sm font-bold transition border border-transparent bg-blue-600/10 text-blue-400">Сдать работу</button>
             </nav>
 
-            <div id="connection-status" class="mono text-[10px] text-gray-500 bg-white/5 px-3 py-1.5 rounded border border-white/5 transition-all">
-                INITIALIZING...
-=======
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-                <a href="#task" class="hover:text-blue-400 transition">Задание</a>
-                <a href="#roles" class="hover:text-blue-400 transition">Роли</a>
-                <a href="#criteria" class="hover:text-blue-400 transition">Критерии</a>
-                <a href="#submit" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition font-bold">Сдать проект</a>
->>>>>>> parent of f3b8d31 (upd)
+            <div id="db-status" class="mono text-[10px] text-gray-500 bg-white/5 px-3 py-1.5 rounded border border-white/5 uppercase">
+                Checking...
             </div>
         </div>
-    </nav>
+    </header>
 
-<<<<<<< HEAD
     <main class="pt-32 pb-20 relative z-10">
+        
         <!-- ВКЛАДКА: ГЛАВНАЯ -->
         <div id="tab-main" class="tab-content active max-w-5xl mx-auto px-6">
             <div class="mb-16">
-                <h1 class="text-6xl md:text-7xl font-extrabold mb-6 tracking-tighter">
+                <h1 class="text-6xl md:text-7xl font-extrabold mb-6 tracking-tighter text-white">
                     Хакатон <span class="text-blue-500">Code Team</span>
                 </h1>
                 <p class="text-gray-400 text-lg max-w-2xl leading-relaxed">
-                    Добро пожаловать в рабочую область хакатона. Здесь вы найдете описание кейса и форму для загрузки вашего финального решения.
+                    Добро пожаловать на официальный портал хакатона CODE TEAM. Это пространство для координации команд, получения заданий и финальной сдачи проектов.
                 </p>
-=======
-    <!-- Герой -->
-    <section class="relative pt-32 pb-20 px-6 hero-gradient text-center">
-        <div class="max-w-7xl mx-auto">
-            <div class="inline-block px-4 py-1.5 mb-6 glass rounded-full text-blue-400 text-xs font-bold tracking-widest uppercase">
-                ИТ-Хакатон КИГМ №23
->>>>>>> parent of f3b8d31 (upd)
-            </div>
-            <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase">
-                Смарт <span class="text-blue-500">Колледж</span><br>будущее здесь
-            </h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                Разработайте цифровое решение для автоматизации жизни студента. Превратите идеи в рабочий прототип.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#task" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-bold transition">Изучить кейс</a>
-                <a href="#submit" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition flex items-center gap-2">
-                    Сдать работу <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Подробное задание -->
-    <section id="task" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16 text-center">
-                <h2 class="text-4xl font-black mb-4 uppercase">Кейс: Smart College</h2>
-                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8 mb-12">
-                <div class="lg:col-span-2 space-y-8">
-                    <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/5">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                            <i data-lucide="info" class="text-blue-500"></i> Проблема и решение
-                        </h3>
-                        <p class="text-slate-300 leading-relaxed">
-                            Современный студент — это не только оценки. Это проекты, волонтерство и навыки. Но как зафиксировать свой рост и найти единомышленников в колледже? Вам нужно спроектировать систему, которая станет <b>цифровым хабом</b> для каждого обучающегося.
-                        </p>
-                    </div>
-<<<<<<< HEAD
-                    <h2 class="text-4xl font-black mb-6 uppercase tracking-tight italic">Кейс «Smart College»</h2>
-                    <p class="text-gray-400 mb-8 leading-relaxed">
-                        Разработайте мобильного помощника для первокурсника. Поскольку учебные данные уже доступны в МЭШ, сфокусируйтесь на инфраструктурных и социальных задачах.
-                    </p>
-                    <div class="space-y-4 mb-10">
-                        <div class="flex items-start space-x-4 p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
-                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex-shrink-0 flex items-center justify-center shadow-lg shadow-orange-500/20">
-                                <i class="fas fa-utensils text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white mb-1">Гайд по столовой</h4>
-                                <p class="text-sm text-gray-400">Актуальное меню на сегодня, расписание обеда, отзывы о блюдах.</p>
-=======
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <!-- Навигация -->
-                        <div class="glass p-6 rounded-2xl border-t-2 border-blue-500 card-step transition duration-300">
-                            <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
-                                <i data-lucide="map" class="text-blue-500"></i>
->>>>>>> parent of f3b8d31 (upd)
-                            </div>
-                            <h4 class="font-bold mb-2 text-white">Индор-навигация</h4>
-                            <p class="text-sm text-slate-400">Помогите первокурснику не потеряться. Создайте систему поиска аудиторий, мастерских и административных кабинетов по корпусу.</p>
-                        </div>
-<<<<<<< HEAD
-                        <div class="flex items-start space-x-4 p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
-                            <div class="w-10 h-10 rounded-xl bg-blue-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <i class="fas fa-map-marked-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white mb-1">Навигация по корпусу</h4>
-                                <p class="text-sm text-gray-400">Интерактивная карта аудиторий и мастерских. Где найти ИТ-полигон или кабинет директора?</p>
-=======
-                        
-                        <!-- НОВАЯ ФУНКЦИЯ: Биржа компетенций -->
-                        <div class="glass p-6 rounded-2xl border-t-2 border-emerald-500 card-step transition duration-300">
-                            <div class="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-4">
-                                <i data-lucide="briefcase" class="text-emerald-500"></i>
->>>>>>> parent of f3b8d31 (upd)
-                            </div>
-                            <h4 class="font-bold mb-2 text-white">Биржа компетенций</h4>
-                            <p class="text-sm text-slate-400">Цифровое портфолио: сбор достижений и поиск напарников для проектов на основе их навыков (напр. «ищу дизайнера»).</p>
-                        </div>
-<<<<<<< HEAD
-=======
-
-                        <!-- Геймификация -->
-                        <div class="glass p-6 rounded-2xl border-t-2 border-purple-500 card-step transition duration-300">
-                            <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4">
-                                <i data-lucide="award" class="text-purple-500"></i>
-                            </div>
-                            <h4 class="font-bold mb-2 text-white">Система достижений</h4>
-                            <p class="text-sm text-slate-400">Механика лояльности: баллы за активность, которые можно обменять на мерч колледжа или бонусы к зачетам.</p>
-                        </div>
-
-                        <!-- Комьюнити -->
-                        <div class="glass p-6 rounded-2xl border-t-2 border-orange-500 card-step transition duration-300">
-                            <div class="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4">
-                                <i data-lucide="message-square" class="text-orange-500"></i>
-                            </div>
-                            <h4 class="font-bold mb-2 text-white">Сервисы обратной связи</h4>
-                            <p class="text-sm text-slate-400">Анонимная кнопка жалоб и предложений для улучшения столовой, раздевалки или учебного процесса.</p>
-                        </div>
-                    </div>
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="glass p-8 rounded-3xl border-l-4 border-l-blue-500">
+                    <h3 class="text-xl font-bold mb-4 flex items-center text-white">
+                        <i class="fas fa-stopwatch mr-3 text-blue-500"></i> Расписание
+                    </h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex justify-between border-b border-white/5 pb-2">
+                            <span>Начало разработки</span>
+                            <span class="text-white font-bold">10:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-white/5 pb-2">
+                            <span>Кофе-брейк</span>
+                            <span class="text-white font-bold">11:30</span>
+                        </li>
+                        <li class="flex justify-between text-blue-400 font-bold">
+                            <span>Финальный дедлайн</span>
+                            <span>13:30</span>
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="space-y-6">
-                    <!-- Роли -->
-                    <div id="roles" class="glass p-8 rounded-3xl border-white/10">
-                        <h3 class="font-black mb-6 uppercase text-sm tracking-widest text-slate-500">Команда (4 чел.)</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-blue-500/20 rounded-md text-blue-400 mt-1"><i data-lucide="crown" class="w-4 h-4"></i></div>
-                                <div><p class="text-sm font-bold">Project Lead</p><p class="text-xs text-slate-500">Идея, сроки и питч</p></div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-emerald-500/20 rounded-md text-emerald-400 mt-1"><i data-lucide="terminal" class="w-4 h-4"></i></div>
-                                <div><p class="text-sm font-bold">Developer</p><p class="text-xs text-slate-500">Логика и код прототипа</p></div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-purple-500/20 rounded-md text-purple-400 mt-1"><i data-lucide="palette" class="w-4 h-4"></i></div>
-                                <div><p class="text-sm font-bold">UI Designer</p><p class="text-xs text-slate-500">Дизайн-макет в Figma</p></div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-orange-500/20 rounded-md text-orange-400 mt-1"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
-                                <div><p class="text-sm font-bold">QA / Analyst</p><p class="text-xs text-slate-500">Тесты и описание фич</p></div>
-                            </div>
+                <div class="glass p-8 rounded-3xl border-l-4 border-l-purple-500 text-white">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-award mr-3 text-purple-500"></i> Критерии оценки
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm">
+                            <div class="w-2 h-2 rounded-full bg-purple-500 mr-3"></div>
+                            <span class="text-gray-300">Техническая сложность и чистота кода</span>
                         </div>
->>>>>>> parent of f3b8d31 (upd)
-                    </div>
-                    
-                    <!-- Критерии -->
-                    <div id="criteria" class="bg-blue-600/10 p-8 rounded-3xl border border-blue-500/20">
-                        <h3 class="font-black mb-4 uppercase text-sm tracking-widest text-blue-400">Критерии (max 40б)</h3>
-                        <ul class="text-xs space-y-3 text-slate-400">
-                            <li class="flex justify-between border-b border-white/5 pb-2"><span>Актуальность идеи</span><span class="text-white font-bold">10б</span></li>
-                            <li class="flex justify-between border-b border-white/5 pb-2"><span>Качество UI/UX</span><span class="text-white font-bold">10б</span></li>
-                            <li class="flex justify-between border-b border-white/5 pb-2"><span>Техническая сложность</span><span class="text-white font-bold">10б</span></li>
-                            <li class="flex justify-between"><span>Защита (Питч)</span><span class="text-white font-bold">10б</span></li>
-                        </ul>
+                        <div class="flex items-center text-sm">
+                            <div class="w-2 h-2 rounded-full bg-purple-500 mr-3"></div>
+                            <span class="text-gray-300">Качество UI/UX дизайна</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <div class="w-2 h-2 rounded-full bg-purple-500 mr-3"></div>
+                            <span class="text-gray-300">Оригинальность идеи и презентация</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Сдача проекта -->
-    <section id="submit" class="py-20 px-6 bg-blue-600/5">
-        <div class="max-w-xl mx-auto">
-            <div class="text-center mb-10">
-<<<<<<< HEAD
-                <h2 class="text-4xl font-black mb-4">Сдача проекта</h2>
+        <!-- ВКЛАДКА: ЗАДАНИЯ -->
+        <div id="tab-tasks" class="tab-content max-w-6xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="px-3 py-1 bg-blue-600 text-[10px] font-bold uppercase rounded-full">Кейс №1</span>
+                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest text-white">Проект «Smart College»</span>
+                </div>
+                <h2 class="text-4xl font-black text-white mb-4 uppercase italic">Направления разработки</h2>
+                <p class="text-gray-400 max-w-2xl">Выберите одно из направлений ниже или предложите свою реализацию функций для улучшения жизни колледжа.</p>
             </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass p-6 rounded-2xl border-t-2 border-blue-500 card-step transition duration-300">
+                    <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="map" class="text-blue-500"></i>
+                    </div>
+                    <h4 class="font-bold mb-2 text-white">Индор-навигация</h4>
+                    <p class="text-sm text-slate-400">Помогите первокурснику не потеряться. Создайте систему поиска аудиторий, мастерских и административных кабинетов по корпусу.</p>
+                </div>
+                
+                <div class="glass p-6 rounded-2xl border-t-2 border-emerald-500 card-step transition duration-300">
+                    <div class="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="briefcase" class="text-emerald-500"></i>
+                    </div>
+                    <h4 class="font-bold mb-2 text-white">Биржа компетенций</h4>
+                    <p class="text-sm text-slate-400">Цифровое портфолио: сбор достижений и поиск напарников для проектов на основе их навыков.</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-t-2 border-purple-500 card-step transition duration-300">
+                    <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="award" class="text-purple-500"></i>
+                    </div>
+                    <h4 class="font-bold mb-2 text-white">Система достижений</h4>
+                    <p class="text-sm text-slate-400">Баллы за активность, которые можно обменять на мерч колледжа или бонусы к зачетам.</p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl border-t-2 border-orange-500 card-step transition duration-300">
+                    <div class="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="message-square" class="text-orange-500"></i>
+                    </div>
+                    <h4 class="font-bold mb-2 text-white">Сервисы обратной связи</h4>
+                    <p class="text-sm text-slate-400">Анонимная кнопка жалоб и предложений для улучшения учебного процесса.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: ФОРМА СДАЧИ -->
+        <div id="tab-submit" class="tab-content max-w-3xl mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-black text-white uppercase tracking-tighter text-white">Регистрация решения</h2>
+                <p class="text-gray-500 text-sm mt-2">Убедитесь, что все ссылки ведут на открытые ресурсы</p>
+            </div>
+
             <form id="submitForm" class="glass p-8 md:p-10 rounded-[2rem] space-y-6">
                 <div class="grid md:grid-cols-2 gap-6">
-=======
-                <h2 class="text-4xl font-black mb-4 uppercase">Форма сдачи</h2>
-                <p class="text-slate-400">Заполните данные вашей команды для оценки жюри.</p>
-            </div>
-            
-            <form id="hackathonForm" class="space-y-6 glass p-8 rounded-3xl border-blue-500/20">
-                <div class="grid md:grid-cols-2 gap-4">
->>>>>>> parent of f3b8d31 (upd)
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Команда</label>
-                        <input id="teamName" type="text" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition" placeholder="Название">
+                    <div class="space-y-2 text-white">
+                        <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">Название команды</label>
+                        <input type="text" id="teamName" required placeholder="Введите название" class="w-full px-5 py-4 rounded-xl input-glass text-white">
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Код (GitHub)</label>
-                        <input id="githubLink" type="url" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition" placeholder="https://...">
+                    <div class="space-y-2 text-white">
+                        <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">Группа</label>
+                        <input type="text" id="groupName" required placeholder="Напр. 22-ИС-1" class="w-full px-5 py-4 rounded-xl input-glass text-white">
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
+                <div class="space-y-2 text-white">
+                    <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">ФИО Капитана</label>
+                    <input type="text" id="captainName" required placeholder="Иванов Иван Иванович" class="w-full px-5 py-4 rounded-xl input-glass text-white">
+                </div>
+                <div class="space-y-2 text-white">
+                    <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">GitHub Репозиторий</label>
+                    <input type="url" id="githubLink" required placeholder="https://github.com/..." class="w-full px-5 py-4 rounded-xl input-glass text-white">
+                </div>
+                <div class="space-y-2 text-white">
+                    <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">Ссылка на Figma / Дизайн</label>
+                    <input type="url" id="figmaLink" required placeholder="https://figma.com/file/..." class="w-full px-5 py-4 rounded-xl input-glass text-white">
+                </div>
                 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Макет (Figma)</label>
-                    <input id="figmaLink" type="url" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition" placeholder="https://...">
-                </div>
-
->>>>>>> parent of f3b8d31 (upd)
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">О проекте</label>
-                    <textarea id="details" rows="4" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition" placeholder="Опишите ваше решение и состав команды..."></textarea>
-                </div>
-<<<<<<< HEAD
-                <div class="space-y-6 pt-4 border-t border-white/5">
-                    <div>
-                        <label class="block text-xs font-bold text-blue-500 uppercase mb-2 ml-1 flex items-center">
-                            <i class="fab fa-github mr-2"></i> Ссылка на GitHub
-                        </label>
-                        <input type="url" id="githubLink" required placeholder="https://github.com/..." class="w-full px-5 py-4 rounded-xl input-glass text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-purple-500 uppercase mb-2 ml-1 flex items-center">
-                            <i class="fab fa-figma mr-2"></i> Ссылка на Figma
-                        </label>
-                        <input type="url" id="figmaLink" required placeholder="https://www.figma.com/file/..." class="w-full px-5 py-4 rounded-xl input-glass text-white">
-                    </div>
-                </div>
-                <button type="submit" id="submitBtn" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl transition-all flex items-center justify-center space-x-3 group disabled:opacity-50">
-                    <span>ЗАФИКСИРОВАТЬ РЕЗУЛЬТАТ</span>
-                    <i class="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
+                <button type="submit" id="mainSubmitBtn" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-600/20 transform hover:-translate-y-1">
+                    ОТПРАВИТЬ ПРОЕКТ
                 </button>
             </form>
+
             <div id="successMessage" class="hidden mt-6 p-10 glass border-green-500/20 rounded-[2rem] text-center">
-                <h3 class="text-2xl font-bold text-white mb-2">Проект принят!</h3>
-                <button onclick="location.reload()" class="mt-6 text-sm text-blue-400 hover:underline">Отправить еще раз</button>
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-green-500 text-2xl"></i>
+                </div>
+                <h3 class="text-3xl font-black text-white mb-2 uppercase italic">Работа принята!</h3>
+                <p class="text-gray-400 mb-4 text-white">Данные успешно записаны в реестр хакатона.</p>
+                <p class="text-gray-400 text-sm italic text-white">ID транзакции: <span id="projectID" class="text-blue-500 mono font-bold"></span></p>
+                <button onclick="location.reload()" class="mt-8 px-6 py-2 bg-white/5 rounded-full text-[10px] text-gray-500 uppercase font-bold hover:bg-white/10 transition">Сдать еще раз</button>
             </div>
-=======
-                
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-black uppercase tracking-widest transition flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20">
-                    <span id="btnText">ОТПРАВИТЬ РЕШЕНИЕ</span>
-                    <i data-lucide="send" class="w-5 h-5"></i>
-                </button>
-            </form>
->>>>>>> parent of f3b8d31 (upd)
         </div>
-    </section>
 
-<<<<<<< HEAD
         <!-- ВКЛАДКА: АДМИН -->
-        <div id="tab-admin" class="tab-content max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black mb-8 uppercase">Список работ</h2>
-            <div class="glass rounded-3xl overflow-hidden overflow-x-auto">
-                <table class="w-full admin-table min-w-[800px]">
-                    <thead>
-                        <tr>
-                            <th>Время</th>
-                            <th>Команда</th>
-                            <th>Группа</th>
-                            <th>Капитан</th>
-                            <th>GitHub</th>
-                            <th>Figma</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-data-list">
-                        <tr><td colspan="6" class="text-center py-20 text-gray-600">Загрузка...</td></tr>
-                    </tbody>
-                </table>
+        <div id="tab-admin" class="tab-content max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-black text-white uppercase italic tracking-tighter">Реестр решений</h2>
+                <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/5 text-[10px] text-gray-400 uppercase font-bold">
+                    Всего работ: <span id="submissionCount" class="text-blue-500">0</span>
+                </div>
+            </div>
+            <div class="glass rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-white/5 text-[10px] text-gray-500 uppercase tracking-widest">
+                            <tr>
+                                <th class="p-6">Команда</th>
+                                <th class="p-6">Группа</th>
+                                <th class="p-6">Капитан</th>
+                                <th class="p-6">Ссылки</th>
+                                <th class="p-6">Время</th>
+                            </tr>
+                        </thead>
+                        <tbody id="submissionsList" class="divide-y divide-white/5 text-white">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const statusEl = document.getElementById('connection-status');
-        
-        // Безопасное получение конфига
-        let firebaseConfig;
-        try {
-            firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        } catch (e) {
-            console.error("Config parse error", e);
-        }
-
-        if (!firebaseConfig) {
-            statusEl.innerText = "ERROR: NO CONFIG";
-            statusEl.classList.add('text-red-500');
-        } else {
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
-            const db = getFirestore(app);
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'hackathon-portal-kigm';
-
-            let currentUser = null;
-
-            // Навигация
-            window.switchTab = function(tabId) {
-                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-                const targetTab = document.getElementById('tab-' + tabId);
-                const targetBtn = document.getElementById('btn-' + tabId);
-                if (targetTab) targetTab.classList.add('active');
-                if (targetBtn) targetBtn.classList.add('active');
-                if (tabId === 'admin') loadAdminData();
-            };
-
-            // Аутентификация
-            const initAuth = async () => {
-                statusEl.innerText = "CONNECTING...";
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    console.error("Auth error:", error);
-                    statusEl.innerText = "STATUS: OFFLINE";
-                }
-            };
-
-            onAuthStateChanged(auth, (user) => {
-                currentUser = user;
-                if (user) {
-                    statusEl.innerText = "STATUS: CONNECTED";
-                    statusEl.classList.replace('text-gray-500', 'text-green-500');
-                }
-            });
-
-            initAuth();
-
-            // Отправка формы
-            document.getElementById('submitForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentUser) return;
-                const btn = document.getElementById('submitBtn');
-                btn.disabled = true;
-                
-                const data = {
-                    teamName: document.getElementById('teamName').value,
-                    groupName: document.getElementById('groupName').value,
-                    captainName: document.getElementById('captainName').value,
-                    githubLink: document.getElementById('githubLink').value,
-                    figmaLink: document.getElementById('figmaLink').value,
-                    timestamp: new Date().toISOString(),
-                    userId: currentUser.uid
-                };
-
-                try {
-                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
-                    document.getElementById('submitForm').classList.add('hidden');
-                    document.getElementById('successMessage').classList.remove('hidden');
-                } catch (err) {
-                    console.error(err);
-                    btn.disabled = false;
-                    alert("Ошибка при сохранении");
-                }
-            });
-
-            // Данные для админа
-            function loadAdminData() {
-                if (!currentUser) return;
-                const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'));
-                onSnapshot(q, (snapshot) => {
-                    const list = document.getElementById('admin-data-list');
-                    list.innerHTML = '';
-                    snapshot.forEach(doc => {
-                        const s = doc.data();
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${new Date(s.timestamp).toLocaleTimeString()}</td>
-                            <td class="font-bold text-blue-400">${s.teamName}</td>
-                            <td>${s.groupName}</td>
-                            <td>${s.captainName}</td>
-                            <td><a href="${s.githubLink}" target="_blank" class="text-blue-500 underline">Git</a></td>
-                            <td><a href="${s.figmaLink}" target="_blank" class="text-purple-500 underline">Figma</a></td>
-                        `;
-                        list.appendChild(tr);
-                    });
-                }, (err) => {
-                    console.error("Snapshot error:", err);
-                });
-            }
-
-            // Скрытый вход в админку
-            document.getElementById('adminLoginBtn').addEventListener('click', () => {
-                const pass = prompt("Password:");
-                if (pass === "admin") switchTab('admin');
-            });
-        }
-=======
-    <footer class="py-12 border-t border-white/5 text-center">
-        <p class="text-[10px] uppercase tracking-[0.2em] text-slate-600 mono">Code Team Hackathon System | KIGM 23 | 2026</p>
+    <!-- ФУТЕР С КНОПКОЙ -->
+    <footer class="mt-20 py-12 border-t border-white/5 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-white">
+            <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest">
+                &copy; 2024 CODE TEAM Hackathon System
+            </div>
+            <!-- СКРЫТАЯ КНОПКА ЗДЕСЬ -->
+            <button onclick="requestAdmin()" class="group flex items-center space-x-2 text-[10px] text-gray-800 hover:text-blue-500 transition-colors uppercase font-bold tracking-widest">
+                <i class="fas fa-lock opacity-20 group-hover:opacity-100 transition-opacity"></i>
+                <span>Jury Access</span>
+            </button>
+        </div>
     </footer>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Initializing Firebase
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'hackathon-kigm-23';
-
-        let currentUser = null;
-
-        // Correctly handling Auth with all required functions imported
-        const initAuth = async () => {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (e) { 
-                console.error("Auth error details:", e); 
-            }
+        const firebaseConfig = {
+            apiKey: "AIzaSyAjvPMqNR4tmG0k0DCh5DDhaqVfIP_qtsw",
+            authDomain: "xakaton-code-team.firebaseapp.com",
+            projectId: "xakaton-code-team",
+            storageBucket: "xakaton-code-team.firebasestorage.app",
+            messagingSenderId: "43159999114",
+            appId: "1:43159999114:web:9a3912a5e1d05ea50f1373",
+            measurementId: "G-B1NPKTSV02"
         };
 
-        onAuthStateChanged(auth, (user) => { 
-            currentUser = user; 
-        });
-        
-        initAuth();
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'xakaton-code-team-portal';
+        let db, auth;
 
-        const form = document.getElementById('hackathonForm');
-        const btn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                alert("Подождите завершения авторизации или обновите страницу.");
-                return;
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                await signInAnonymously(auth);
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        const status = document.getElementById('db-status');
+                        status.innerText = 'Online';
+                        status.className = 'mono text-[10px] text-green-500 bg-green-500/10 px-3 py-1.5 rounded border border-green-500/20 uppercase';
+                        listenSubmissions();
+                    }
+                });
+            } catch (err) {
+                console.error(err);
             }
+        }
 
+        document.getElementById('submitForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('mainSubmitBtn');
             btn.disabled = true;
-            btnText.innerText = "ОТПРАВКА...";
-
+            btn.innerText = 'РЕГИСТРАЦИЯ...';
             const payload = {
                 team: document.getElementById('teamName').value,
-                github: document.getElementById('githubLink').value,
+                group: document.getElementById('groupName').value,
+                captain: document.getElementById('captainName').value,
+                git: document.getElementById('githubLink').value,
                 figma: document.getElementById('figmaLink').value,
-                details: document.getElementById('details').value,
-                timestamp: serverTimestamp(),
-                uid: currentUser.uid
+                id: Math.random().toString(36).substring(2, 8).toUpperCase(),
+                timestamp: Date.now()
             };
-
             try {
-                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'submissions');
-                await addDoc(colRef, payload);
-                
-                document.getElementById('successOverlay').style.display = 'flex';
-                form.reset();
-            } catch (error) {
-                console.error("Firestore submission error:", error);
-                alert("Ошибка сохранения. Проверьте соединение с интернетом.");
-            } finally {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), payload);
+                document.getElementById('submitForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                document.getElementById('projectID').innerText = payload.id;
+            } catch (err) {
+                alert("Ошибка сохранения");
                 btn.disabled = false;
-                btnText.innerText = "ОТПРАВИТЬ РЕШЕНИЕ";
+                btn.innerText = 'ОТПРАВИТЬ ПРОЕКТ';
             }
-        };
+        });
 
-        window.closeSuccess = () => {
-            document.getElementById('successOverlay').style.display = 'none';
-        };
+        function listenSubmissions() {
+            if (!db) return;
+            const q = collection(db, 'artifacts', appId, 'public', 'data', 'submissions');
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById('submissionsList');
+                const count = document.getElementById('submissionCount');
+                list.innerHTML = '';
+                count.innerText = snap.size;
+                const docs = [];
+                snap.forEach(doc => docs.push(doc.data()));
+                docs.sort((a, b) => b.timestamp - a.timestamp).forEach(d => {
+                    const timeStr = new Date(d.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    list.innerHTML += `<tr class="border-b border-white/5"><td class="p-6 font-bold text-blue-400">${d.team}</td><td class="p-6 text-gray-300">${d.group}</td><td class="p-6 text-gray-400">${d.captain}</td><td class="p-6 flex space-x-2"><a href="${d.git}" target="_blank" class="p-2 bg-white/5 text-blue-400 rounded-lg"><i class="fab fa-github"></i></a><a href="${d.figma}" target="_blank" class="p-2 bg-white/5 text-purple-400 rounded-lg"><i class="fab fa-figma"></i></a></td><td class="p-6 text-gray-500 mono text-xs">${timeStr}</td></tr>`;
+                });
+            });
+        }
 
-        // Initialize icons
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            const btn = document.getElementById('btn-' + tabId);
+            if(btn) btn.classList.add('active');
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        window.requestAdmin = function() {
+            if (prompt("Пароль жюри:") === "2024") switchTab('admin');
+        }
+
+        initFirebase();
         lucide.createIcons();
->>>>>>> parent of f3b8d31 (upd)
     </script>
 </body>
 </html>
