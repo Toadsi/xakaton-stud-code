@@ -355,7 +355,6 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- УЛУЧШЕННАЯ ЗАЩИТА API КЛЮЧЕЙ (ОБФУСКАЦИЯ) ---
         const _p1 = "AIzaSyAjvPMqNR";
         const _p2 = "4tmG0k0DCh5DDhaqVfIP_qtsw";
         const _d1 = "xakaton-code-team.firebaseapp.com";
@@ -371,9 +370,6 @@
             appId: _id1 + _id2
         };
 
-        // --- БЕЗОПАСНОСТЬ: Хеш пароля (SHA-256) ---
-        // Хеш пароля "2026" (сгенерирован заранее)
-        // Исходного текста "2026" в коде больше нет.
         const AUTH_SECURE_HASH = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
 
         const appId = 'kigm-tasks-restored-v7';
