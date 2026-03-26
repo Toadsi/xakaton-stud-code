@@ -6,7 +6,8 @@
     <title>Студкод | Хакатон КИГМ №23</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Подключаем Lucide правильно -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
         
@@ -26,6 +27,7 @@
             background-color: var(--bg-deep);
             color: var(--text-high);
             overflow-x: hidden;
+            margin: 0;
         }
 
         .glass-panel {
@@ -58,7 +60,11 @@
         
         input:focus {
             box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+            outline: none;
         }
+
+        /* Чтобы навигация не перекрывала контент */
+        nav { height: 80px; }
     </style>
 </head>
 <body>
@@ -147,23 +153,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-6 mb-20">
-                <div class="glass-panel p-10 rounded-3xl border-l-4 border-blue-500 relative overflow-hidden">
-                    <i data-lucide="layout-dashboard" class="absolute -right-4 -bottom-4 w-32 h-32 opacity-5 text-blue-500"></i>
-                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <i data-lucide="cpu" class="w-6 h-6 text-blue-500"></i> Внедрение в КИГМ №23
-                    </h3>
-                    <p class="text-slate-400 leading-relaxed">Лучшие проекты будут доработаны и запущены в реальную эксплуатацию в нашем учебном заведении.</p>
-                </div>
-                <div class="glass-panel p-10 rounded-3xl border-l-4 border-emerald-500 relative overflow-hidden">
-                    <i data-lucide="briefcase" class="absolute -right-4 -bottom-4 w-32 h-32 opacity-5 text-emerald-500"></i>
-                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <i data-lucide="graduation-cap" class="w-6 h-6 text-emerald-500"></i> Стажировка
-                    </h3>
-                    <p class="text-slate-400 leading-relaxed">Центр карьеры предоставит победителям возможность пройти стажировку в ИТ-отделах или у наших партнеров.</p>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -181,13 +170,13 @@
                         <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
                             <i data-lucide="flag" class="w-3 h-3"></i> Команда
                         </label>
-                        <input type="text" id="teamName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-all" placeholder="Название команды">
+                        <input type="text" id="teamName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="Название команды">
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
                             <i data-lucide="hash" class="w-3 h-3"></i> Группа
                         </label>
-                        <input type="text" id="groupName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-all" placeholder="Напр. ИСП-411">
+                        <input type="text" id="groupName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="Напр. ИСП-411">
                     </div>
                 </div>
 
@@ -195,7 +184,7 @@
                     <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
                         <i data-lucide="user" class="w-3 h-3"></i> Капитан команды
                     </label>
-                    <input type="text" id="captainName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-all" placeholder="ФИО капитана">
+                    <input type="text" id="captainName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="ФИО капитана">
                 </div>
 
                 <div class="space-y-2">
@@ -204,7 +193,7 @@
                     </label>
                     <div class="relative">
                         <i data-lucide="link-2" class="absolute left-4 top-3.5 w-5 h-5 text-slate-500"></i>
-                        <input type="url" id="gitLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-all font-mono text-sm" placeholder="https://github.com/...">
+                        <input type="url" id="gitLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:border-blue-500 transition-all font-mono text-sm text-white" placeholder="https://github.com/...">
                     </div>
                 </div>
 
@@ -214,7 +203,7 @@
                     </label>
                     <div class="relative">
                         <i data-lucide="globe" class="absolute left-4 top-3.5 w-5 h-5 text-slate-500"></i>
-                        <input type="url" id="demoLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-all font-mono text-sm" placeholder="https://project-demo.vercel.app">
+                        <input type="url" id="demoLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:border-blue-500 transition-all font-mono text-sm text-white" placeholder="https://project-demo.vercel.app">
                     </div>
                 </div>
 
@@ -273,9 +262,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
+        // Firebase Config
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -284,6 +274,56 @@
 
         let currentUser = null;
 
+        // Инициализация Lucide иконок
+        const refreshIcons = () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        };
+
+        // Навигация
+        window.switchTab = (tab) => {
+            const tabs = ['home', 'submit', 'admin'];
+            tabs.forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                const btn = document.getElementById('btn-' + t + '-nav');
+                if (el) el.classList.remove('active');
+                if (btn) btn.classList.remove('active');
+            });
+
+            const target = document.getElementById('tab-' + tab);
+            const targetBtn = document.getElementById('btn-' + tab + '-nav');
+            if (target) target.classList.add('active');
+            if (targetBtn) targetBtn.classList.add('active');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            refreshIcons();
+        };
+
+        // Админ доступ
+        window.requestAdmin = () => { 
+            const pass = prompt("Ключ доступа (Admin Only):");
+            if (pass === "kigm23") {
+                window.switchTab('admin');
+            } else if (pass !== null) {
+                alert("Неверный ключ");
+            }
+        };
+
+        // Удаление записи
+        window.deleteEntry = async (id) => {
+            if (!currentUser) return;
+            if (confirm("Удалить проект из списка жюри?")) {
+                try {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'submissions', id));
+                } catch (err) {
+                    console.error(err);
+                    alert("Ошибка при удалении");
+                }
+            }
+        };
+
+        // Auth
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -292,47 +332,16 @@
                     await signInAnonymously(auth);
                 }
             } catch (error) {
-                console.error("Ошибка аутентификации:", error);
+                console.error("Auth error:", error);
             }
         };
 
-        initAuth();
-
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
-            if (user) {
-                loadSubmissions();
-            }
+            if (user) loadSubmissions();
         });
 
-        document.getElementById('submissionForm')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                alert("Ошибка: вы не авторизованы.");
-                return;
-            }
-
-            const data = {
-                team: document.getElementById('teamName').value,
-                group: document.getElementById('groupName').value,
-                captain: document.getElementById('captainName').value,
-                git: document.getElementById('gitLink').value,
-                demo: document.getElementById('demoLink').value,
-                ts: Date.now(),
-                userId: currentUser.uid
-            };
-
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
-                alert("Данные успешно переданы жюри!");
-                document.getElementById('submissionForm').reset();
-                switchTab('home');
-            } catch (err) { 
-                console.error("Ошибка сохранения:", err);
-                alert("Ошибка при передаче данных."); 
-            }
-        });
-
+        // Загрузка данных
         function loadSubmissions() {
             if (!currentUser) return;
             const q = collection(db, 'artifacts', appId, 'public', 'data', 'submissions');
@@ -349,14 +358,14 @@
                         <tr class="hover:bg-white/5 transition-all">
                             <td class="px-6 py-4">
                                 <div class="font-bold text-base text-white flex items-center gap-2">
-                                    <i class="fas fa-users text-blue-500 text-xs"></i> ${d.team}
+                                    <i class="fas fa-users text-blue-500 text-xs"></i> ${d.team || 'Без имени'}
                                 </div>
                                 <div class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
-                                    <i class="fas fa-user-circle"></i> ${d.captain || 'Без капитана'}
+                                    <i class="fas fa-user-circle"></i> ${d.captain || 'Не указан'}
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-center">
-                                <span class="font-mono text-blue-400 bg-blue-500/5 px-2 py-1 rounded text-xs border border-blue-500/10">${d.group}</span>
+                                <span class="font-mono text-blue-400 bg-blue-500/5 px-2 py-1 rounded text-xs border border-blue-500/10">${d.group || '-'}</span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
@@ -375,37 +384,40 @@
                             </td>
                         </tr>`;
                 });
-            }, (error) => {
-                console.error("Ошибка слушателя Firestore:", error);
-            });
+            }, (err) => console.error("Firestore sync error:", err));
         }
 
-        window.deleteEntry = async id => {
-            if (!currentUser) return;
-            if (confirm("Удалить запись?")) {
-                try {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'submissions', id));
-                } catch (err) {
-                    console.error("Ошибка удаления:", err);
-                }
+        // Обработка формы
+        document.getElementById('submissionForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return alert("Подождите авторизации...");
+
+            const data = {
+                team: document.getElementById('teamName').value,
+                group: document.getElementById('groupName').value,
+                captain: document.getElementById('captainName').value,
+                git: document.getElementById('gitLink').value,
+                demo: document.getElementById('demoLink').value,
+                ts: Date.now(),
+                userId: currentUser.uid
+            };
+
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
+                alert("Проект успешно отправлен!");
+                e.target.reset();
+                window.switchTab('home');
+            } catch (err) { 
+                console.error(err);
+                alert("Ошибка при отправке."); 
             }
-        };
+        });
 
-        window.switchTab = tab => {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            const target = document.getElementById('tab-' + tab);
-            if (target) target.classList.add('active');
-            document.getElementById('btn-' + tab + '-nav')?.classList.add('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-
-        window.requestAdmin = () => { 
-            const pass = prompt("Ключ доступа (Admin Only):");
-            if (pass === "kigm23") switchTab('admin'); 
-        };
-
-        lucide.createIcons();
+        // Запуск
+        window.addEventListener('DOMContentLoaded', () => {
+            initAuth();
+            refreshIcons();
+        });
     </script>
 </body>
 </html>
