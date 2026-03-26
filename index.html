@@ -284,7 +284,6 @@
 
         let currentUser = null;
 
-        // ПРАВИЛО 3: Сначала аутентификация
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -302,7 +301,6 @@
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             if (user) {
-                console.log("Пользователь авторизован:", user.uid);
                 loadSubmissions();
             }
         });
@@ -310,7 +308,7 @@
         document.getElementById('submissionForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUser) {
-                alert("Ошибка: вы не авторизованы. Подождите секунду или обновите страницу.");
+                alert("Ошибка: вы не авторизованы.");
                 return;
             }
 
@@ -325,24 +323,19 @@
             };
 
             try {
-                // ПРАВИЛО 1: Строгий путь
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
                 alert("Данные успешно переданы жюри!");
                 document.getElementById('submissionForm').reset();
                 switchTab('home');
             } catch (err) { 
                 console.error("Ошибка сохранения:", err);
-                alert("Ошибка при передаче данных. Возможно, недостаточно прав."); 
+                alert("Ошибка при передаче данных."); 
             }
         });
 
         function loadSubmissions() {
             if (!currentUser) return;
-
-            // ПРАВИЛО 1: Строгий путь
             const q = collection(db, 'artifacts', appId, 'public', 'data', 'submissions');
-            
-            // ПРАВИЛО 2: Без сложных запросов (фильтрация в памяти если нужно)
             onSnapshot(q, (snapshot) => {
                 const list = document.getElementById('adminList');
                 const stats = document.getElementById('stats');
@@ -389,12 +382,11 @@
 
         window.deleteEntry = async id => {
             if (!currentUser) return;
-            if (confirm("Вы действительно хотите удалить эту запись из базы данных жюри?")) {
+            if (confirm("Удалить запись?")) {
                 try {
                     await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'submissions', id));
                 } catch (err) {
                     console.error("Ошибка удаления:", err);
-                    alert("Недостаточно прав для удаления.");
                 }
             }
         };
@@ -410,7 +402,7 @@
 
         window.requestAdmin = () => { 
             const pass = prompt("Ключ доступа (Admin Only):");
-            if (pass === "2026") switchTab('admin'); 
+            if (pass === "kigm23") switchTab('admin'); 
         };
 
         lucide.createIcons();
