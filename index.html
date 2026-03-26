@@ -264,12 +264,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
         // Firebase Config
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+        const functions = getFunctions(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'studcode-2026';
 
         let currentUser = null;
@@ -283,6 +285,15 @@
 
         // Навигация
         window.switchTab = (tab) => {
+            // Проверка доступа к админ-панели
+            if (tab === 'admin') {
+                const token = sessionStorage.getItem('adminToken');
+                if (!token) {
+                    alert("Требуется пароль администратора");
+                    return;
+                }
+            }
+            
             const tabs = ['home', 'submit', 'admin'];
             tabs.forEach(t => {
                 const el = document.getElementById('tab-' + t);
@@ -301,24 +312,45 @@
         };
 
         // Админ доступ
-        window.requestAdmin = () => { 
+        window.requestAdmin = async () => { 
             const pass = prompt("Ключ доступа (Admin Only):");
-            if (pass === "kigm23") {
+            if (pass === null) return;
+            
+            try {
+                const verifyPassword = httpsCallable(functions, 'verifyAdminPassword');
+                const response = await verifyPassword({ password: pass });
+                
+                // Сохраняем токен в sessionStorage (доступен только текущей сессии)
+                sessionStorage.setItem('adminToken', response.data.token);
+                console.log("✅ Администратор авторизован");
+                
+                // Переходим на админ-панель
                 window.switchTab('admin');
-            } else if (pass !== null) {
-                alert("Неверный ключ");
+            } catch (error) {
+                console.error("Admin auth error:", error);
+                alert("Ошибка авторизации: " + (error.message || "Неверный пароль"));
             }
         };
 
         // Удаление записи
         window.deleteEntry = async (id) => {
             if (!currentUser) return;
+            
+            // Проверка админ-токена
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) {
+                alert("Требуется администраторский доступ для удаления");
+                window.requestAdmin();
+                return;
+            }
+            
             if (confirm("Удалить проект из списка жюри?")) {
                 try {
                     await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'submissions', id));
+                    console.log("✅ Проект удален");
                 } catch (err) {
-                    console.error(err);
-                    alert("Ошибка при удалении");
+                    console.error("Delete error:", err);
+                    alert("Ошибка при удалении: " + (err.message || "Попробуйте позже"));
                 }
             }
         };
@@ -338,7 +370,10 @@
 
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
-            if (user) loadSubmissions();
+            if (user) {
+                loadSubmissions();
+                console.log("✅ Пользователь авторизован");
+            }
         });
 
         // Загрузка данных
@@ -404,17 +439,21 @@
 
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
+                console.log("✅ Проект успешно отправлен");
                 alert("Проект успешно отправлен!");
                 e.target.reset();
                 window.switchTab('home');
             } catch (err) { 
-                console.error(err);
-                alert("Ошибка при отправке."); 
+                console.error("Submission error:", err);
+                alert("Ошибка при отправке: " + (err.message || "Попробуйте позже")); 
             }
         });
 
         // Запуск
         window.addEventListener('DOMContentLoaded', () => {
+            // Очистка админ-токена при перезагрузке страницы для безопасности
+            // (токен хранится только в текущей сессии)
+            sessionStorage.removeItem('adminToken');
             initAuth();
             refreshIcons();
         });

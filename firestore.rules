@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Функция для проверки JWT токена в заголовке
+    function hasAdminToken() {
+      let auth = request.auth;
+      return auth != null;
+    }
+    
+    // Основные правила
+    match /artifacts/{appId}/public/data/submissions/{document=**} {
+      
+      // Разрешить чтение всем авторизованным пользователям
+      allow read: if request.auth != null;
+      
+      // Разрешить создание только авторизованным пользователям
+      allow create: if request.auth != null 
+        && request.resource.data.keys().hasAll(['team', 'captain', 'group', 'git', 'demo']);
+      
+      // Разрешить удаление только администраторам
+      // Администратор должен иметь customClaim 'admin': true
+      allow delete: if request.auth != null 
+        && request.auth.token.admin == true;
+      
+      // Запретить обновление
+      allow update: if false;
+    }
+    
+    // Правила для админ-конфигурации
+    match /config/{document=**} {
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+  }
+}
