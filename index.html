@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Студкод | Хакатон КИГМ №23</title>
+    
+    <!-- Firebase Config MUST be first -->
+    <script>
+        window.__firebase_config = {
+            apiKey: "AIzaSyAjvPMqNR4tmG0k0DCh5DDhaqVfIP_qtsw",
+            authDomain: "xakaton-code-team.firebaseapp.com",
+            projectId: "xakaton-code-team",
+            storageBucket: "xakaton-code-team.firebasestorage.app",
+            messagingSenderId: "43159999114",
+            appId: "1:43159999114:web:9a3912a5e1d05ea50f1373"
+        };
+        window.__app_id = 'studcode-2026';
+        window.switchTab = () => {};
+        window.requestAdmin = () => {};
+        window.deleteEntry = () => {};
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Подключаем Lucide правильно -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
         
@@ -65,6 +80,10 @@
 
         /* Чтобы навигация не перекрывала контент */
         nav { height: 80px; }
+        
+        button:not([disabled]) {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +92,7 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
                 <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <i data-lucide="code-2" class="text-white w-6 h-6"></i>
+                    <i class="fas fa-code text-white text-lg"></i>
                 </div>
                 <span class="text-xl font-black tracking-tighter uppercase">Студкод <span class="text-blue-500">2026</span></span>
             </div>
@@ -90,14 +109,14 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="max-w-3xl mb-16">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-                    <i data-lucide="shield-check" class="w-3 h-3"></i> Инициировано Центром карьеры КИГМ №23
+                    <i class="fas fa-shield-alt"></i> Инициировано Центром карьеры КИГМ №23
                 </div>
                 <h1 class="text-6xl md:text-8xl font-black mb-6 leading-none tracking-tight uppercase">ХАКАТОН <br><span class="text-blue-500">СТУДКОД</span></h1>
                 <p class="text-xl text-slate-400 leading-relaxed mb-8">Разработай инновационное ИТ-решение для цифровой трансформации нашего колледжа.</p>
                 
                 <div class="flex flex-wrap gap-4">
                     <button onclick="switchTab('submit')" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-500/20 flex items-center gap-2">
-                        <i data-lucide="rocket" class="w-5 h-5"></i> Регистрация проекта
+                        <i class="fas fa-rocket"></i> Регистрация проекта
                     </button>
                 </div>
             </div>
@@ -111,7 +130,7 @@
                     <div class="glass-panel p-8 rounded-3xl case-card border border-white/5">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="map-pinned" class="w-6 h-6"></i>
+                                <i class="fas fa-map-pin"></i>
                             </div>
                             <span class="text-[10px] font-bold py-1 px-2 rounded bg-blue-500/20 text-blue-400 uppercase">Кейс #1</span>
                         </div>
@@ -122,7 +141,7 @@
                     <div class="glass-panel p-8 rounded-3xl case-card border border-white/5">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="users" class="w-6 h-6"></i>
+                                <i class="fas fa-users"></i>
                             </div>
                             <span class="text-[10px] font-bold py-1 px-2 rounded bg-purple-500/20 text-purple-400 uppercase">Кейс #2</span>
                         </div>
@@ -133,7 +152,7 @@
                     <div class="glass-panel p-8 rounded-3xl case-card border border-white/5">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="trophy" class="w-6 h-6"></i>
+                                <i class="fas fa-trophy"></i>
                             </div>
                             <span class="text-[10px] font-bold py-1 px-2 rounded bg-emerald-500/20 text-emerald-400 uppercase">Кейс #3</span>
                         </div>
@@ -144,7 +163,7 @@
                     <div class="glass-panel p-8 rounded-3xl case-card border border-white/5">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center">
-                                <i data-lucide="message-circle-question" class="w-6 h-6"></i>
+                                <i class="fas fa-question-circle"></i>
                             </div>
                             <span class="text-[10px] font-bold py-1 px-2 rounded bg-amber-500/20 text-amber-400 uppercase">Кейс #4</span>
                         </div>
@@ -168,13 +187,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
-                            <i data-lucide="flag" class="w-3 h-3"></i> Команда
+                            <i class="fas fa-flag"></i> Команда
                         </label>
                         <input type="text" id="teamName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="Название команды">
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
-                            <i data-lucide="hash" class="w-3 h-3"></i> Группа
+                            <i class="fas fa-hashtag"></i> Группа
                         </label>
                         <input type="text" id="groupName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="Напр. ИСП-411">
                     </div>
@@ -182,33 +201,33 @@
 
                 <div class="space-y-2">
                     <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
-                        <i data-lucide="user" class="w-3 h-3"></i> Капитан команды
+                        <i class="fas fa-user"></i> Капитан команды
                     </label>
                     <input type="text" id="captainName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white" placeholder="ФИО капитана">
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
-                        <i data-lucide="github" class="w-3 h-3"></i> Репозиторий проекта
+                        <i class="fas fa-code-branch"></i> Репозиторий проекта
                     </label>
                     <div class="relative">
-                        <i data-lucide="link-2" class="absolute left-4 top-3.5 w-5 h-5 text-slate-500"></i>
+                        <i class="fas fa-link absolute left-4 top-3.5 text-slate-500"></i>
                         <input type="url" id="gitLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:border-blue-500 transition-all font-mono text-sm text-white" placeholder="https://github.com/...">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-xs font-bold uppercase text-slate-500 tracking-wide flex items-center gap-2">
-                        <i data-lucide="eye" class="w-3 h-3"></i> Ссылка на демо
+                        <i class="fas fa-eye"></i> Ссылка на демо
                     </label>
                     <div class="relative">
-                        <i data-lucide="globe" class="absolute left-4 top-3.5 w-5 h-5 text-slate-500"></i>
+                        <i class="fas fa-globe absolute left-4 top-3.5 text-slate-500"></i>
                         <input type="url" id="demoLink" required class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:border-blue-500 transition-all font-mono text-sm text-white" placeholder="https://project-demo.vercel.app">
                     </div>
                 </div>
 
                 <button type="submit" class="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 transform active:scale-95 flex items-center justify-center gap-2">
-                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <i class="fas fa-paper-plane"></i>
                     Передать данные жюри
                 </button>
             </form>
@@ -221,12 +240,12 @@
             <div class="flex justify-between items-end mb-8">
                 <div>
                     <h2 class="text-3xl font-black uppercase tracking-tight flex items-center gap-3">
-                        <i data-lucide="gavel" class="w-8 h-8 text-blue-500"></i> Панель жюри
+                        <i class="fas fa-gavel text-blue-500"></i> Панель жюри
                     </h2>
                     <p class="text-slate-500 text-sm">Список всех поданных решений на Студкод 2026</p>
                 </div>
                 <div id="stats" class="bg-blue-500/10 text-blue-500 px-4 py-2 rounded-lg font-mono text-sm border border-blue-500/20 flex items-center gap-2">
-                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                    <i class="fas fa-chart-bar"></i>
                     <span>Всего заявок: 0</span>
                 </div>
             </div>
@@ -255,7 +274,7 @@
         <p class="text-xs text-slate-500 uppercase tracking-widest flex flex-col items-center gap-2">
             <span>&copy; 2026 Студкод | Инициировано Центром карьеры КИГМ №23</span>
             <span onclick="requestAdmin()" class="cursor-pointer hover:text-white transition-colors flex items-center gap-1 font-mono text-[10px]">
-                <i data-lucide="lock" class="w-3 h-3"></i> _sys_admin_access
+                <i class="fas fa-lock"></i> _sys_admin_access
             </span>
         </p>
     </footer>
@@ -263,33 +282,24 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
         // Firebase Config
-        const firebaseConfig = JSON.parse(__firebase_config);
+        const firebaseConfig = window.__firebase_config;
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        const functions = getFunctions(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'studcode-2026';
+        const appId = window.__app_id || 'studcode-2026';
+        
+        const ADMIN_SECRET_KEY = 'kigm23';  
 
         let currentUser = null;
-
-        // Инициализация Lucide иконок
-        const refreshIcons = () => {
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
-        };
 
         // Навигация
         window.switchTab = (tab) => {
             // Проверка доступа к админ-панели
             if (tab === 'admin') {
-                const token = sessionStorage.getItem('adminToken');
-                if (!token) {
-                    alert("Требуется пароль администратора");
+                if (!window.checkAdminAccess()) {
                     return;
                 }
             }
@@ -308,27 +318,30 @@
             if (targetBtn) targetBtn.classList.add('active');
             
             window.scrollTo({top: 0, behavior: 'smooth'});
-            refreshIcons();
         };
 
-        // Админ доступ
-        window.requestAdmin = async () => { 
-            const pass = prompt("Ключ доступа (Admin Only):");
-            if (pass === null) return;
+        // Проверка админ-доступа через URL параметр
+        window.checkAdminAccess = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const adminKey = urlParams.get('admin');
             
-            try {
-                const verifyPassword = httpsCallable(functions, 'verifyAdminPassword');
-                const response = await verifyPassword({ password: pass });
-                
-                // Сохраняем токен в sessionStorage (доступен только текущей сессии)
-                sessionStorage.setItem('adminToken', response.data.token);
-                console.log("✅ Администратор авторизован");
-                
-                // Переходим на админ-панель
+            if (!adminKey) {
+                alert("Требуется ключ доступа\n\nИспользуйте: ?admin=ВАША_ССЫЛКА/admin?admin=admin123");
+                return false;
+            }
+            
+            if (adminKey !== ADMIN_SECRET_KEY) {
+                alert("Неверный ключ доступа");
+                return false;
+            }
+            
+            return true;
+        };
+        
+        // Переход в админ-панель
+        window.requestAdmin = () => {
+            if (window.checkAdminAccess()) {
                 window.switchTab('admin');
-            } catch (error) {
-                console.error("Admin auth error:", error);
-                alert("Ошибка авторизации: " + (error.message || "Неверный пароль"));
             }
         };
 
@@ -336,11 +349,8 @@
         window.deleteEntry = async (id) => {
             if (!currentUser) return;
             
-            // Проверка админ-токена
-            const token = sessionStorage.getItem('adminToken');
-            if (!token) {
-                alert("Требуется администраторский доступ для удаления");
-                window.requestAdmin();
+            // Проверка админ-ключа
+            if (!window.checkAdminAccess()) {
                 return;
             }
             
@@ -451,11 +461,7 @@
 
         // Запуск
         window.addEventListener('DOMContentLoaded', () => {
-            // Очистка админ-токена при перезагрузке страницы для безопасности
-            // (токен хранится только в текущей сессии)
-            sessionStorage.removeItem('adminToken');
             initAuth();
-            refreshIcons();
         });
     </script>
 </body>

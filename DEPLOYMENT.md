@@ -24,93 +24,70 @@ npm install
 cd ..
 ```
 
-## Шаг 3: Настройка переменных окружения
-
-1. Скопируйте `.env.local.example` в `.env.local`:
-   ```bash
-   cp .env.local.example .env.local
-   ```
-
-2. Обновите значения в `.env.local`:
-   - `ADMIN_PASSWORD` - ваш пароль администратора
-   - `JWT_SECRET` - сложный секретный ключ для подписи JWT
-   - Firebase конфиг (из Firebase Console)
-
-3. Установите переменные окружения в Firebase:
-   
-   **Важно:** `functions:config:set` является устаревшей командой (будет удалена в марте 2027). Для временного использования включите легаси-команды:
-   ```bash
-   firebase experiments:enable legacyRuntimeConfigCommands
-   firebase functions:config:set admin.password="your_password" admin.jwt_secret="your_secret"
-   ```
-
-## Шаг 4: Развертывание Cloud Functions
-
-```bash
-firebase deploy --only functions
-```
-
-## Шаг 5: Развертывание Firestore Rules
+## Шаг 3: Развертывание Firestore Rules
 
 ```bash
 firebase deploy --only firestore:rules
 ```
 
-## Шаг 6: Развертывание статического контента (Hosting)
+## Шаг 4: Развертывание статического контента (Hosting)
 
 ```bash
 firebase deploy --only hosting
 ```
 
-## Полное развертывание
+## Полное развертывание (Firestore + Hosting)
 
 ```bash
-firebase deploy
+firebase deploy --only firestore:rules,hosting
 ```
 
 ---
 
+## Архитектура развертывания
+
+- **Firestore** - облачная база данных (Firebase)
+- **Firestore Rules** - правила доступа (Firebase)
+- **Hosting** - статический фронтенд (Firebase)
+
 ## Локальная разработка
 
-### Запустить эмулятор Functions:
+### Запустить эмулятор Firestore:
 
 ```bash
-firebase emulators:start --only functions
-```
-
-### Использовать функции локально:
-
-В браузере откройте DevTools и выполните:
-
-```javascript
-// Установка URL эмулятора
-const functions = getFunctions();
-connectFunctionsEmulator(functions, 'localhost', 5001);
+firebase emulators:start --only firestore
 ```
 
 ---
 
 ## Безопасность
 
-### Что скрыто от исходника:
+### Админ-панель
 
-- ✅ Пароль администратора (`ADMIN_PASSWORD`)
-- ✅ JWT секрет (`JWT_SECRET`)
-- ✅ Firebase конфиги (в переменных окружения)
+Админ-панель защищена простым секретным ключом через URL параметр.
 
-### Как пароль проверяется:
+**Использование:** 
+```
+https://stud-code.ru?admin=kigm23
+```
 
-1. Клиент отправляет пароль в Cloud Function (HTTPS)
-2. Function проверяет против `process.env.ADMIN_PASSWORD`
-3. Если верно — возвращает JWT токен
-4. Токен сохраняется в `sessionStorage` (доступен только текущей сессии)
-5. Токен используется для доступа к админ-панели
+**Изменить ключ:**
+
+1. Откройте `index.html`
+2. Найдите строку:
+   ```javascript
+   const ADMIN_SECRET_KEY = 'kigm23';  // Измените на свой секретный ключ!
+   ```
+3. Замените `admin123` на свой ключ
+4. Разверните: `firebase deploy --only hosting`
+
+**Важно:** Используйте сложный ключ (не просто `admin` или `123`)!
 
 ### Firestore Rules:
 
 - Чтение: все авторизованные пользователи
 - Создание: все авторизованные пользователи
-- Удаление: только администраторы (требуется токен)
+- Удаление: только администраторы (требуется ключ админ-панели)
 
 ---
 
