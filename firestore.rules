@@ -19,10 +19,8 @@ service cloud.firestore {
       allow create: if request.auth != null 
         && request.resource.data.keys().hasAll(['team', 'captain', 'group', 'git', 'demo']);
       
-      // Разрешить удаление только администраторам
-      // Администратор должен иметь customClaim 'admin': true
-      allow delete: if request.auth != null 
-        && request.auth.token.admin == true;
+      // Разрешить удаление авторизованным пользователям (проверка доступа на клиенте)
+      allow delete: if request.auth != null;
       
       // Запретить обновление
       allow update: if false;

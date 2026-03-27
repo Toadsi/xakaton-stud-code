@@ -101,7 +101,7 @@
             <div class="hidden md:flex items-center gap-8">
                 <button onclick="switchTab('home')" id="btn-home-nav" class="nav-link text-sm font-medium transition-colors py-2 active">Главная</button>
                 <button onclick="switchTab('submit')" id="btn-submit-nav" class="nav-link text-sm font-medium transition-colors py-2">Подать проект</button>
-                <button onclick="switchTab('admin')" id="btn-admin-nav" class="nav-link text-sm font-medium transition-colors py-2 hidden">Жюри</button>
+                <button onclick="requestAdmin()" id="btn-admin-nav" class="nav-link text-sm font-medium transition-colors py-2">Жюри</button>
             </div>
         </div>
     </nav>
@@ -334,6 +334,33 @@
         </div>
     </div>
 
+    <!-- Модальное окно для админ-аутентификации -->
+    <div id="adminAuthModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl max-w-md w-full">
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <i class="fas fa-shield-alt text-blue-500 text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-black text-white">Доступ к панели жюри</h3>
+                    <p class="text-slate-400 text-sm mt-2">Введите пароль для входа</p>
+                </div>
+                
+                <form id="adminAuthForm" class="space-y-4">
+                    <div>
+                        <input type="password" id="adminPassword" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:border-blue-500 transition-all text-white placeholder-slate-500" placeholder="Пароль доступа">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 transform active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                </form>
+                
+                <button onclick="closeAdminAuthModal()" class="w-full mt-4 py-2 text-slate-400 hover:text-white transition-colors text-sm">
+                    Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="py-12 border-t border-white/5 opacity-60 text-center">
         <p class="text-xs text-slate-500 uppercase tracking-widest">
             &copy; 2026 Студкод | Инициировано Центром карьеры КИГМ №23
@@ -398,22 +425,10 @@
             
             return true;
         };
-
-        // Показать кнопку админа если есть доступ
-        window.showAdminButton = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const adminKey = urlParams.get('admin');
-            
-            if (adminKey === ADMIN_SECRET_KEY) {
-                document.getElementById('btn-admin-nav').classList.remove('hidden');
-            }
-        };
         
         // Переход в админ-панель
         window.requestAdmin = () => {
-            if (window.checkAdminAccess()) {
-                window.switchTab('admin');
-            }
+            document.getElementById('adminAuthModal').classList.remove('hidden');
         };
 
         // Удаление записи
@@ -488,6 +503,11 @@
             document.getElementById('projectModal').classList.add('hidden');
         };
 
+        // Закрытие админ-аутентификации
+        window.closeAdminAuthModal = () => {
+            document.getElementById('adminAuthModal').classList.add('hidden');
+        };
+
         // Закрытие модала по клику вне
         document.getElementById('projectModal')?.addEventListener('click', (e) => {
             if (e.target.id === 'projectModal') {
@@ -495,10 +515,22 @@
             }
         });
 
+        // Закрытие админ-модала по клику вне
+        document.getElementById('adminAuthModal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'adminAuthModal') {
+                closeAdminAuthModal();
+            }
+        });
+
         // Закрытие модала по Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !document.getElementById('projectModal').classList.contains('hidden')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (!document.getElementById('projectModal').classList.contains('hidden')) {
+                    closeModal();
+                }
+                if (!document.getElementById('adminAuthModal').classList.contains('hidden')) {
+                    closeAdminAuthModal();
+                }
             }
         });
 
@@ -601,9 +633,22 @@
             }
         });
 
+        // Обработка формы админ-аутентификации
+        document.getElementById('adminAuthForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_SECRET_KEY) {
+                document.getElementById('adminAuthModal').classList.add('hidden');
+                window.switchTab('admin');
+                e.target.reset();
+            } else {
+                alert("Неверный пароль");
+            }
+        });
+
         // Запуск
         window.addEventListener('DOMContentLoaded', () => {
-            showAdminButton();
             initAuth();
         });
     </script>
