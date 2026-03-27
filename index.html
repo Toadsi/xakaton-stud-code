@@ -346,6 +346,7 @@
             <div class="hidden md:flex items-center gap-8">
                 <button onclick="switchTab('home')" id="btn-home-nav" class="nav-link text-sm font-medium transition-colors py-2 active">Главная</button>
                 <button onclick="switchTab('submit')" id="btn-submit-nav" class="nav-link text-sm font-medium transition-colors py-2">Подать проект</button>
+                <button onclick="requestAdmin()" id="btn-admin-nav" class="nav-link text-sm font-medium transition-colors py-2">Жюри</button>
             </div>
 
             <!-- Бургер-меню -->
@@ -359,6 +360,7 @@
     <div id="mobileMenu" class="mobile-menu md:hidden">
         <button onclick="switchTab('home'); closeMobileMenu()">Главная</button>
         <button onclick="switchTab('submit'); closeMobileMenu()">Подать проект</button>
+        <button onclick="requestAdmin(); closeMobileMenu()" id="btn-admin-mobile">Жюри</button>
     </div>
 
     <!-- Главная страница -->
@@ -820,6 +822,17 @@
             const targetBtn = document.getElementById('btn-' + tab + '-nav');
             if (target) target.classList.add('active');
             if (targetBtn) targetBtn.classList.add('active');
+            
+            // Скрытие кнопки жюри на главной странице
+            const adminBtn = document.getElementById('btn-admin-nav');
+            const adminBtnMobile = document.getElementById('btn-admin-mobile');
+            if (tab === 'admin') {
+                if (adminBtn) adminBtn.style.display = '';
+                if (adminBtnMobile) adminBtnMobile.style.display = '';
+            } else {
+                if (adminBtn) adminBtn.style.display = 'none';
+                if (adminBtnMobile) adminBtnMobile.style.display = 'none';
+            }
             
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
