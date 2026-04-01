@@ -22,7 +22,7 @@
         window.deleteEntry = () => {};
     </script>
     
-    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <script src="assets/css/tailwind.js"></script>
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <style>
         
@@ -822,6 +822,17 @@
             if (target) target.classList.add('active');
             if (targetBtn) targetBtn.classList.add('active');
             
+            // Скрытие кнопки жюри на главной странице
+            const adminBtn = document.getElementById('btn-admin-nav');
+            const adminBtnMobile = document.getElementById('btn-admin-mobile');
+            if (tab === 'admin') {
+                if (adminBtn) adminBtn.style.display = '';
+                if (adminBtnMobile) adminBtnMobile.style.display = '';
+            } else {
+                if (adminBtn) adminBtn.style.display = 'none';
+                if (adminBtnMobile) adminBtnMobile.style.display = 'none';
+            }
+            
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
 
@@ -1226,18 +1237,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             initAuth();
             switchTab('home'); // Инициализация навигации
-            
-            // Проверка URL для показа кнопки жюри
-            const urlParams = new URLSearchParams(window.location.search);
-            const adminBtn = document.getElementById('btn-admin-nav');
-            const adminBtnMobile = document.getElementById('btn-admin-mobile');
-            if (urlParams.get('admin') === 'kigm23') {
-                if (adminBtn) adminBtn.style.display = '';
-                if (adminBtnMobile) adminBtnMobile.style.display = '';
-            } else {
-                if (adminBtn) adminBtn.style.display = 'none';
-                if (adminBtnMobile) adminBtnMobile.style.display = 'none';
-            }
         });
     </script>
 </body>
